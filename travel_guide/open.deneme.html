@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Guide - Map with Pins</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <!-- External Styles -->
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="" href="styles/styles.css">
+
+
+    <style>
+   
+        .navbar a {
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <a href="#" class="logo">
+            <img src="images/logo.png" alt="logo" />
+        </a>
+        <nav class="navbar">
+            <a href="index.html">Home</a>
+            <a href="open.deneme.html">Map</a>
+        </nav>
+    </header>
+
+    <!-- Map Section -->
+    <div id="map"></div>
+
+<section id="instructions" style="position: fixed; top: 40px; right: 40px; z-index: 1000;">
+    <div id="instructions-header" 
+         style="background-color: rgba(227, 222, 228, 0.9);
+                text-transform: lowercase;
+                color: var(--text-color); 
+                padding: 10px; 
+                border-radius: 8px; 
+                text-align: center; 
+                cursor: pointer; 
+                text-shadow: 0 2px 5px rgba(0, 0, 0, 0.133);
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.379);">
+        <h2 style="margin: 0; font-size: 1.5rem; text-transform:none;">How to Use the Map?</h2>
+        <p>Click to See >></p>
+    </div>
+    <div id="instructions-content" 
+         style="display: none; 
+                background-color: rgba(227, 222, 228, 0.9); 
+                color: var(--text-color); 
+                padding: 20px; 
+                border-radius: 8px; 
+                margin-top: 5px; 
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+        <p>
+            Welcome to the Travel Guide! Use this map to explore iconic landmarks and popular restaurants in Istanbul.
+        </p>
+        <ul style="list-style-type: none; padding: 0; margin: 15px 0;">
+            <li style="margin: 10px 0;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2389E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px;">
+                    <path d="M12 21c6-4.5 8-9 8-12a8 8 0 1 0-16 0c0 3 2 7.5 8 12z"></path>
+                    <circle cx="12" cy="9" r="3"></circle>
+                </svg>
+                <b>Blue Pins</b> represent historical places.
+            </li>
+            <li style="margin: 10px 0;">🍴 <b>Red Pins</b> represent recommended restaurants.</li>
+        </ul>
+        <p>Click on any pin to see more details about the location, including its name and a short description.</p>
+    </div>
+</section>
+
+<script>
+    const header = document.getElementById('instructions-header');
+    const content = document.getElementById('instructions-content');
+
+    header.addEventListener('click', () => {
+
+        if (content.style.display === 'none' || content.style.display === '') {
+            content.style.display = 'block';
+        } else {
+            content.style.display = 'none';
+        }
+    });
+</script>
+
+
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map').setView([41.0082, 28.9784], 13); // Istanbul
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // SVG icons
+        const blueIcon = L.divIcon({
+            html: `
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="32" height="32" viewBox="0 0 90 90">
+                    <g transform="scale(1)">
+                        <path d="M45 90C30.086 71.757 15.174 46.299 15.174 29.826S28.527 0 45 0s29.826 13.353 29.826 29.826S59.914 71.757 45 90z" fill="#2389E5"/>
+                        <circle cx="45" cy="29.38" r="13.5" fill="#FFFFFF"/>
+                    </g>
+                </svg>
+            `,
+            className: '',
+            iconSize: [32, 32],
+            iconAnchor: [16, 32]
+        });
+
+        const redIcon = L.divIcon({
+            html: `
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="32" height="32" viewBox="0 0 90 90">
+                    <g transform="scale(1)">
+                        <path d="M45 90C30.086 71.757 15.174 46.299 15.174 29.826S28.527 0 45 0s29.826 13.353 29.826 29.826S59.914 71.757 45 90z" fill="#E54D23"/>
+                        <circle cx="45" cy="29.38" r="13.5" fill="#F9F9F9"/>
+                    </g>
+                </svg>
+            `,
+            className: '',
+            iconSize: [32, 32],
+            iconAnchor: [16, 32]
+        });
+
+        const locations = [
+            {
+                name: "Tarihi Sultanahmet Köftecisi",
+                coords: [41.0087, 28.9791],
+                description: "Famous for its grilled Turkish meatballs (köfte).",
+                category: "restaurant"
+            },
+            {
+                name: "Pandeli",
+                coords: [41.0160, 28.9709],
+                description: "Ottoman-inspired dishes in the Spice Bazaar.",
+                category: "restaurant"
+            },
+            {
+                name: "Olden 1545",
+                coords: [41.0071, 28.9477],
+                description: "Innovative menu with vegan and gourmet options.",
+                category: "restaurant"
+            },
+            {
+                name: "Mikla",
+                coords: [41.0326, 28.9741],
+                description: "Modern Anatolian cuisine with panoramic views.",
+                category: "restaurant"
+            },
+            {
+                name: "Nicole",
+                coords: [41.0305, 28.9745],
+                description: "Contemporary Mediterranean cuisine.",
+                category: "restaurant"
+            },
+            {
+                name: "Neolokal",
+                coords: [41.0255, 28.9730],
+                description: "Modern Turkish cuisine with traditional ingredients.",
+                category: "restaurant"
+            },
+            {
+                name: "Blue Mosque",
+                coords: [41.0055, 28.9768],
+                description: "Historic mosque with striking blue Iznik tiles.",
+                category: "place"
+            },
+            {
+                name: "Hagia Sophia",
+                coords: [41.0086, 28.9802],
+                description: "Byzantine-era architecture masterpiece.",
+                category: "place"
+            },
+            {
+                name: "Topkapi Palace",
+                coords: [41.0110, 28.9834],
+                description: "Former Ottoman imperial palace.",
+                category: "place"
+            }
+        ];
+
+        locations.forEach(location => {
+            L.marker(location.coords, {
+                icon: location.category === "restaurant" ? redIcon : blueIcon
+            })
+                .addTo(map)
+                .bindPopup(`<b>${location.name}</b><br>${location.description}`);
+        });
+    </script>
+</body>
+</html>

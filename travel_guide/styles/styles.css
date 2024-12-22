@@ -1,0 +1,231 @@
+/* Add the custom font */
+@font-face {
+    font-family: 'BethEllen';
+    src: url('beth-ellen/V2/Beth-Ellen-2.0.otf') format('opentype');
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+/* Root Variables */
+:root {
+    --background-color: #faf1ef; /* Soft beige */
+    --primary-color: #BC4639; /* Soft coral */
+    --accent-color-1: #5C2018; /* Deep brown */
+    --accent-color-2: #46633c; /* Muted rose */
+    --highlight-color: #4285F4; /* Blue accent */
+    --font-family: 'Trebuchet MS', sans-serif;
+    --custom-font: 'BethEllen', cursive; /* Custom uploaded font */
+    --header-height: 70px;
+    --transition-speed: 0.3s ease-in-out;
+}
+
+/* Body Styling */
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--accent-color-1);
+    line-height: 1.6;
+}
+
+/* Header Section */
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: var(--header-height);
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+    border-bottom: 1px solid var(--accent-color-2);
+}
+
+.header .logo img {
+    height: 65px;
+}
+
+.navbar {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: var(--accent-color-1);
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: color var(--transition-speed);
+}
+
+.navbar a:hover,
+.navbar .active {
+    color: var(--primary-color);
+}
+
+.home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 700px; /* Set manual height */
+    width: 100%; /* Ensure full page width */
+    text-align: center;
+    background: url('../images/home.png') no-repeat center center;
+    background-size: 100% 100%; /* Force image to cover entire section */
+}
+
+.home .content {
+    padding: 20px;
+    max-width: 1200px;
+    color: var(--);
+}
+
+.home .content h3 {
+    font-size: 10rem;
+    /*font-weight: 700;*/
+    letter-spacing: 1px;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-family: var(--custom-font); /* Apply custom font */
+
+}
+
+.home .content h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--);
+    font-family: var(--font-family);
+}
+
+.home .content p {
+    font-size: 1.5rem;
+    margin: 5px 0;
+    color: var(--accent-color-2);
+    background-color: rgba(243, 224, 220, 0.53);
+    border-radius: 20px;
+}
+
+.home .content .btn {
+    display: inline-block;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--background-color);
+    background-color: var(--accent-color-2);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+    text-decoration: none;
+    text-shadow: #faf1ef;
+}
+
+.home .content .btn:hover {
+    background-color: var(--primary-color);
+}
+
+/* Section Styling */
+section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+section h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: var(--accent-color-2);
+    text-transform: uppercase;
+
+
+}
+
+.box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.box {
+    background-color: var(--primary-color-2);
+    color: var(--accent-color-1);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.199);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+.box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.box img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+.box .text {
+    text-align: left;
+}
+
+.box .text span {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.box .text p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Specific Headers for Each Section */
+.must-have-container h4,
+.must-taste-container h4,
+.restaurant-category h4 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Footer Section */
+footer {
+    text-align: center;
+    padding: 30px;
+    background-color: var(--accent-color-1);
+    color: var(--background-color);
+    font-size: 1rem;
+    border-top: 1px solid var(--accent-color-2);
+}
+
+
+#map {
+    height: 600px;
+    width: 100%;
+    margin-top: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+    font-size: 1.4rem;
+}
